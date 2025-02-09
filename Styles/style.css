@@ -1,0 +1,405 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 1em;
+	padding: 0;
+	font-family: 'noteworthylight', sans-serif;
+	height: 800vh;
+	background: linear-gradient(lightgray, white);
+}
+
+@font-face {
+    font-family: 'noteworthylight';
+    src: url('noteworthy-lt-webfont.woff2') format('woff2'),
+         url('noteworthy-lt-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+section:nth-of-type(3) {
+	position:fixed;
+	inset:0;
+	gap:1em;
+}
+
+article {
+	width:fit-content;
+}
+
+article div.mask {
+	background-color:white;
+	padding: 10em 2em 3em 2em;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+article:nth-of-type(1) {
+	opacity:0;
+	animation:reveal1 linear forwards;
+	animation-timeline:scroll();
+	animation-range: 0vh 150vh;
+	max-width: 45%;
+  }
+
+article:nth-of-type(2) {
+	opacity:0;
+	animation:reveal2 linear forwards;
+	animation-timeline:scroll();
+	animation-range: 80vh 310vh;
+	max-width: 45%;
+  }
+
+article:nth-of-type(3) {
+	opacity:0;
+	animation:reveal3 linear forwards;
+	animation-timeline:scroll();
+	animation-range: 210vh 310vh;
+  }
+  
+  @keyframes reveal1 {
+	0% {
+	  opacity: 0.3;
+	  translate: 24.5em 10em;
+	  scale: 0;
+	}
+	50% {
+	  translate:1em 0em;
+	  opacity: 1;
+	  scale: 1;
+	}
+	100% {
+	  translate:1em -20em;
+	}
+  }
+
+  @keyframes reveal2 {
+	0% {
+	  opacity: 0;
+	  translate: 24em -10em;
+	  scale: 0;
+	}
+	10% {
+		translateX: 50em;
+	}
+	50% {
+	  translate:50em -25em;
+	  opacity: 1;
+	  scale: 1;
+	}
+	100% {
+	  translate:52em -30em;
+	}
+  }
+
+  @keyframes reveal3 {
+	0% {
+	  opacity: 0;
+	  translate: -8em 0em;
+	}
+	50% {
+	  translate:0 -3em;
+	}
+	100% {
+	  opacity: 1;
+	  translate:0 -16em;
+	}
+  }
+
+
+
+
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	height: 200vh;
+	padding-top: 100px;
+}
+.poppetje {
+    position: fixed;
+    top: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	z-index: 2;
+}
+
+/* Hoofd */
+.hoofd {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background-color:burlywood;
+    border-radius: 50% / 50% 50% 25% 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	border: solid 0.5px black;
+}
+
+/* Ogen */
+.oog {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+/* Pupillen */
+.pupil {
+    width: 6px;
+    height: 6px;
+    background: black;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 4px;
+}
+
+/* Lichaam */
+.lichaam {
+    width: 60px;
+    height: 100px;
+    background-color: #3498db;
+    border-radius: 20px;
+    margin-top: -10px;
+    border: 2px solid black;
+}
+
+/* Hoed */
+.hoed {
+    position: absolute;
+    top: -40px; /* Plaats boven het hoofd */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Hoed rand */
+.hoed::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    width: 80px;
+    height: 10px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+article:nth-of-type(1) a {
+	text-decoration: none;
+	color: black;
+	display: flex;
+	justify-content: start;
+	flex-direction: row-reverse;
+	align-items: left;
+	position: sticky;
+}
+
+article:nth-of-type(2) a {
+	text-decoration: none;
+	color: black;
+	display: flex;
+	align-items: left;
+	flex-direction: column;
+}
+
+article.csgo {
+	z-index: 2;
+	position: relative;
+	padding: 10px;
+}
+
+article div.mask:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+article.csgo:after {
+	content: "";
+    position: absolute;
+    bottom: -15px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(whitesmoke,white);
+    border-radius: 50%;
+    box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.1);
+	animation: bubble-float1 2.5s ease-in-out infinite;
+	animation-fill-mode: backwards;
+	z-index: 0;
+}
+
+article.csgo:before {
+	content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(whitesmoke,white);
+    border-radius: 50%;
+    box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.1);
+	animation: bubble-float2 2.5s ease-in-out infinite;
+	animation-fill-mode: backwards;
+	z-index: 0;
+}
+
+@keyframes bubble-float1 {
+    0% {
+        translate: 3.5em 15em;
+		scale: 0.4;
+        opacity: 0.4
+    }
+    50% {
+        transform: translateY(-5px) translateX(1em) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-10px) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bubble-float2 {
+    0% {
+        translate: 3.5em 15em;
+		scale: 0.4;
+        opacity: 0.4
+    }
+    50% {
+        transform: translateY(5px) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(10px) scale(1);
+        opacity: 1;
+    }
+}
+
+article.school {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	position: relative;
+	padding: 10px;
+    border-radius: 20px;
+}
+  
+article.school:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+	z-index: 1;
+}
+
+article.school:after {
+	content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(whitesmoke,white);
+    border-radius: 50%;
+    box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.1);
+	animation: bubble-float3 2.5s ease-in-out infinite;
+	animation-fill-mode: backwards;
+	z-index: 1;
+}
+
+article.school:before {
+	content: "";
+    position: absolute;
+    bottom: -30px;
+    left: 5px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(whitesmoke,white);
+    border-radius: 50%;
+    box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.1);
+	animation: bubble-float4 2.5s ease-in-out infinite;
+	animation-fill-mode: backwards;
+	z-index: 1;
+}
+
+@keyframes bubble-float3 {
+    0% {
+        translate: -6em 9em;
+		scale: 0.4;
+        opacity: 0.4
+    }
+    50% {
+        transform: translateY(-5px) translateX(1em) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-10px) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bubble-float4 {
+    0% {
+        translate: -4em 6em;
+		scale: 0.4;
+        opacity: 0.4
+    }
+    50% {
+        transform: translateY(5px) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(10px) scale(1);
+        opacity: 1;
+    }
+}
+
+
+.mask {
+	mask-image: url('/images/Evenement_Icoon.png');
+	mask-size: 100% 100%;
+}
+
+iframe {
+	max-width:45%;
+}
+
+article div {
+	padding: 0.5em;
+	align-self: center;
+}
+
+@media screen and (min-width: 680px) and (max-width: 1000px) {
+	article:nth-of-type(1) {
+		max-width: 80%;
+	}
+	article:nth-of-type(1) a iframe {
+		width: max-content;
+	}
+	body {
+		background-color: red;
+	}
+  }
+
+  @media screen and (max-width: 680px) {
+	article:nth-of-type(1) a {
+		display: block;
+	}
+	body {
+		color: purple
+	};
+  }
