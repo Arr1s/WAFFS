@@ -19,6 +19,7 @@ getData(urlMe).then( data209 => {
 	let birthDay = data209.data.birthdate;
 	let myBio = data209.data.bio;
 	let myImage = data209.data.avatar;
+	let myHobbies = data209.data.custom;
 
 	// Selecteer de h1 met de naam "h1" en vergang de tekst met "myName"
 	let h1 = document.querySelector('h1');
@@ -26,15 +27,14 @@ getData(urlMe).then( data209 => {
 
 	// Selecteer de p met de naam "verjaardag" en vergang de tekst met "birthDay"
 	let biografie = document.querySelector('p');
-	biografie.textContent = myBio;
+	biografie.textContent = myBio + "" + myHobbies;
 
-    // let myImg = document.createElement("img");
-    // myImg.src = myImage;
-    // myImg.alt = myName;
-    // console.log(myImg);
+    let myImg = document.createElement("img");
+    myImg.src = myImage;
+    myImg.alt = myName;
+    console.log(myImg);
     
-    // let mySummary = document.querySelector('summary');
-    // mySummary.appendChild(myImg);
+    h1.appendChild(myImg);
 });
 
 async /*9*/ function getData(URL) {
@@ -54,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const microfoon = document.querySelector(".microfoon");
 
     // Create an audio element
-    const audio = new Audio("your-music-file.mp3"); // Replace with your actual music file
+    const audio = new Audio("iBelieve.wav"); // Replace with your actual music file
+	console.log(audio);
 
     hoed.addEventListener("click", function() {
         hoed.classList.toggle("omhoog"); // Toggle class to reveal microphone
@@ -71,4 +72,31 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sun = document.querySelector(".sun");
+    const book = document.querySelector(".book");
+    let clickedOnce = false;
+
+    // 🌞 Klik op de zon → boek verschijnt en valt naar beneden
+    sun.addEventListener("click", function () {
+        book.classList.add("falling");
+		book.classList.remove("loading");
+    });
+
+    // 📖 Klik op het boek → Zoom in
+    book.addEventListener("click", function () {
+        if (!clickedOnce) {
+            book.classList.add("zoom");
+            clickedOnce = true;
+        } else {
+            book.classList.toggle("open"); // Open het boek
+        }
+    });
+	book.addEventListener("animationend", function () {
+		book.classList.remove("falling");
+	});
+});
+
+
 

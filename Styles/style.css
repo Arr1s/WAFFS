@@ -21,7 +21,8 @@ body {
     box-shadow: 0 0 50px 30px rgba(255, 223, 0, 0.5), 
                 0 0 100px 60px rgba(255, 165, 0, 0.3);
     animation: sun-glow 3s infinite alternate ease-in-out;
-	z-index: 0;
+	z-index: 2;
+	cursor: pointer;
 }
 
 /* Animatie voor subtiele gloed */
@@ -37,43 +38,227 @@ body {
 }
 
 
-/* Navigatie */
-nav ul {
+
+
+
+
+
+/* 📖 Boek (verstopt voordat de zon is aangeklikt) */
+body > section:nth-of-type(1) {
+	position: relative;
+	height: 100vh;
+	width: auto;
+}
+
+.book {
+    position: absolute;
+    top: 30%;
+    right: 7%;
+    width: 22em;
+    height: 31em;
+    background-image: url(/images/mikeAndvari.png);
+	background-size: cover;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.5s ease, top 2s ease-out;
+    display: block; 
+    z-index: 4;
+	transform-origin: center left;
+	transition: 0s ease 0.3s;
+}
+
+.book.loading {
+	display: none;
+}
+
+/* 📖 Boek verschijnt en valt naar beneden */
+.book.falling {
+    display: block;
+    top: 30%;
+	animation: bookFall 1s ease-out;
+	animation-direction: reverse;
+}
+
+.book:not(.falling):hover {
+	animation: draai 1s forwards;
+	animation-direction: normal;
+	filter:brightness(0);
+}
+
+@keyframes draai {
+	0% {
+	transform: rotateY(0deg);
+	}
+	100% {
+	transform: rotateY(150deg);
+	}
+  }
+
+@keyframes bookFall {
+	0% {
+		top: 30%;
+        scale: 1;
+        left: 69%;
+	}
+	100% {
+		top: -20%;
+		scale: 0.1;
+        left: 90%;
+	}
+}
+
+/* 📖 Tekst zichtbaar in geopend boek */
+.book-content {
+    position: absolute;
+    top: 30%;
+    right: 7%;
+    width: 19.5em;
+    height: 28.5em;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0.5em 0.5em 0;
+	display: none;
+}
+
+.book:not(.falling):hover + .book-content {
+    display: block;
+}
+
+img {
+	width: 10%;
+}
+
+/* Het poppetje */
+.container {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 	align-items: center;
-	background-color: #3498db;
-	padding: 1em;
+	position: fixed;
+	z-index: 3;
+	height: 400vh;
 }
 
-nav ul li {
-	list-style: none;
+.poppetje {
+    position: absolute;
+    top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	z-index: 2;
 }
 
+/* Hoofd */
+.hoofd {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background-color:burlywood;
+    border-radius: 50% / 50% 50% 25% 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	border: solid 0.5px black;
+}
 
+.container ul {
+    padding: 0;
+}
 
-/* Details & Summary */
-details {
-	border: 1px solid #aaa;
-	border-radius: 4px;
-	padding: 0.5em 0.5em 0;
-  }
+/* Ogen */
+.oog {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: 0;
+}
 
-summary {
-	font-weight: bold;
-	margin: -0.5em -0.5em 0;
-	padding: 0.5em;
+/* Pupillen */
+.pupil {
+    width: 6px;
+    height: 6px;
+    background: black;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 4px;
+}
+
+/* Lichaam */
+.lichaam {
+    width: 60px;
+    height: 100px;
+    background-color: #3498db;
+    border-radius: 20px;
+    margin-top: -10px;
+    border: 2px solid black;
+}
+
+/* Hoed */
+.hoed {
+    position: absolute;
+    top: -2.5em; /* Plaats boven het hoofd */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+    transition: top 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease-out;
+	z-index: 1;
 	cursor: pointer;
-  }
-  
-  details[open] {
-	padding: 0.5em;
-  }
-  
-  details[open] summary {
-	border-bottom: 1px solid #aaa;
-	margin-bottom: 0.5em;
-  }
+}
+
+/* Microphone */
+.microfoon {
+    position: absolute;
+    top: -1.5em; /* Initially hidden under the hat */
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
+    transition: top 0.8s ease-in-out;
+	height: 45%;
+    cursor: pointer;
+}
+
+/* Move the microphone further down when clicked */
+.microfoon.actief {
+    top: 4em; /* Drop-down effect */
+    transition: top 0.5s ease-in-out;
+}
+
+.hoed.omhoog {
+    top: -6em; /* Moves the hat up */
+    transform: translateX(-50%) rotate(-10deg) scale(1.1); /* Slight tilt for a natural effect */
+    animation: hoed-vliegen 0.8s ease-out forwards;
+}
+
+/* Keyframe animation for a flying effect */
+@keyframes hoed-vliegen {
+    0% {
+        transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-0.5em) rotate(-10deg) scale(1.1);
+    }
+}
+
+/* Hoed rand */
+.hoed::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    width: 80px;
+    height: 10px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+
 
 
 
@@ -83,6 +268,8 @@ summary {
 /* Wolkjes */
 section:nth-of-type(2) {
 	max-width: 100%;
+	left: 50%;
+    top: 60%;
 }
 
 section:nth-of-type(3) {
@@ -172,124 +359,7 @@ article:nth-of-type(3) {
 
 
 
-/* Het poppetje */
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
-	height: 200vh;
-	padding-top: 100px;
-}
-.poppetje {
-    position: fixed;
-    top: 31em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-	z-index: 2;
-}
 
-/* Hoofd */
-.hoofd {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    background-color:burlywood;
-    border-radius: 50% / 50% 50% 25% 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	border: solid 0.5px black;
-}
-
-/* Ogen */
-.oog {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: white;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-/* Pupillen */
-.pupil {
-    width: 6px;
-    height: 6px;
-    background: black;
-    border-radius: 50%;
-    margin: auto;
-    margin-top: 4px;
-}
-
-/* Lichaam */
-.lichaam {
-    width: 60px;
-    height: 100px;
-    background-color: #3498db;
-    border-radius: 20px;
-    margin-top: -10px;
-    border: 2px solid black;
-}
-
-/* Hoed */
-.hoed {
-    position: absolute;
-    top: -2.5em; /* Plaats boven het hoofd */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 40px;
-    background-color: black;
-    border-radius: 10px 10px 0 0;
-    transition: top 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease-out;
-	z-index: 1;
-}
-
-/* Microphone */
-.microfoon {
-    position: absolute;
-    top: -1.5em; /* Initially hidden under the hat */
-    left: 50%;
-    transform: translateX(-50%);
-    transition: top 0.8s ease-in-out;
-	height: 40%;
-}
-
-/* Move the microphone further down when clicked */
-.microfoon.actief {
-    top: 4em; /* Drop-down effect */
-    transition: top 0.5s ease-in-out;
-}
-
-.hoed.omhoog {
-    top: -6em; /* Moves the hat up */
-    transform: translateX(-50%) rotate(-10deg) scale(1.1); /* Slight tilt for a natural effect */
-    animation: hoed-vliegen 0.8s ease-out forwards;
-}
-
-/* Keyframe animation for a flying effect */
-@keyframes hoed-vliegen {
-    0% {
-        transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
-    }
-    100% {
-        transform: translateX(-50%) translateY(-0.5em) rotate(-10deg) scale(1.1);
-    }
-}
-
-/* Hoed rand */
-.hoed::before {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: -10px;
-    width: 80px;
-    height: 10px;
-    background-color: black;
-    border-radius: 5px;
-}
 
 
 
@@ -304,6 +374,10 @@ article a {
 	justify-content: center;
 }
 
+.gedachten article p,h2,h3, ul, li {
+    padding-right: 3em;
+}
+
 article:nth-of-type(1) a {
 	flex-direction: row-reverse;
 	align-items: left;
@@ -313,6 +387,7 @@ article:nth-of-type(1) a {
 article:nth-of-type(2) a {
 	align-items: left;
 	flex-direction: column;
+    padding: 1em;
 }
 
 article:nth-of-type(3) a {
@@ -548,45 +623,25 @@ iframe {
 
 article div {
 	padding: 0.5em;
-	align-self: center;
+	align-self:flex-end;
 }
 
 
 
 
 
-.counterStrike {
-	padding-top: 100vh;
+@media screen and (max-width: 1166px) {
+    article {
+        width: 55%;
+    }
+    article:nth-of-type(1) a iframe {
+        width: 100%;
+    }
+    article:nth-of-type(2) {
+        right: 5%;
+    }
+
 }
-
-@keyframes csVideo {
-	from {
-		background-position: 50% 0;
-		height: 100vh;
-		font-size: calc(4vw + 1em);
-	}
-	to {
-		background-position: 50% 100%;
-		background-color: #0b1584;
-		height: 10vh;
-		font-size: 2em;
-	}
-}
-
-#csVideo {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	animation: csVideo linear forwards;
-	animation-timeline: scroll();
-	animation-range: 0vh 90vh;
-}
-
-
-
-
-
-
 
 
 @media screen and (min-width: 680px) and (max-width: 1000px) {
@@ -596,7 +651,7 @@ article div {
 		flex-direction: column;
 		align-items: center;
 	}
-	article.csgo {
+	article {
 		width: 90%;
 		justify-content: center;
 	}
@@ -606,6 +661,21 @@ article div {
 	body {
 		background-color: red;
 	}
+    @keyframes reveal2 {
+        0% {
+          opacity: 0.3;
+          translate: -20vw -15vh;
+          scale: 0;
+        }
+        50% {
+          translate: 0vw -35vh;
+          opacity: 1;
+          scale: 0.9;
+        }
+        100% {
+          translate: 10vw -60vh;
+        }
+      }
   }
   /* 🔹 Responsive Adjustments with Media Queries */
 @media (max-width: 768px) { /* Tablets & smaller screens */
@@ -624,6 +694,24 @@ article div {
 	body {
 		color: purple
 	};
+    iframe {
+        display: none;
+    }
+    @keyframes reveal2 {
+        0% {
+          opacity: 0.3;
+          translate: 24vw -52vh;
+          scale: 0;
+        }
+        50% {
+          translate: 1vw -60vh;
+          opacity: 1;
+          scale: 1;
+        }
+        100% {
+          translate: 1vw -70vh;
+        }
+      }
   }
 
 
@@ -631,6 +719,9 @@ article div {
     article .bubbel3, article .bubbel4 {
         width: 7vw;
         height: 7vw;
+    }
+    iframe {
+        display: none;
     }
 }
 
