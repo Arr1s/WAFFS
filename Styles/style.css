@@ -1,3 +1,4 @@
+/* Algemeen CSS */
 * {
 	margin: 0;
 	padding: 0;
@@ -9,6 +10,74 @@ body {
 	background: linear-gradient(to bottom, oklch(90.1% 0.07 222.93), oklch(80.2% 0.07 222.93)); /* Blauwe lucht naar wit */
 }
 
+article {
+	width: 50%;
+	opacity: 0;
+}
+
+/* Overflow-y van  */
+article a {
+	color: black;
+	display: flex;
+	text-decoration: none;
+	overflow-y: scroll;
+	height: 10em;
+	list-style-type: disc;
+	justify-content: center;
+}
+
+article:nth-of-type(1) a {
+	flex-direction: row-reverse;
+	align-items: left;
+	position: sticky;
+}
+
+article:nth-of-type(2) a {
+	align-items: left;
+	flex-direction: column;
+    padding: 1em;
+}
+
+article:nth-of-type(3) a {
+	flex-direction: column;
+	align-items: left;
+}
+
+img {
+	width: 10%;
+}
+
+iframe {
+	max-width:45%;
+}
+
+article div {
+	padding: 0.5em;
+	align-self:flex-end;
+}
+
+/* Bron: https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image */
+.mask {
+	mask-image: url('/images/Evenement_Icoon.png');
+	mask-size: 100% 100%;
+}
+
+article div.mask {
+	background-color:white;
+	padding: 10em 2em 3em 2em;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease;
+}
+
+article div.mask:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
 /* Zonnetje */
 .sun {
     position: fixed;
@@ -18,14 +87,12 @@ body {
     height: 100px;
     background: radial-gradient(circle, oklch(85.59% 0.175 95.29) 40%, oklch(79.71% 0.183 77.29) 100%);
     border-radius: 50%;
-    box-shadow: 0 0 50px 30px rgba(255, 223, 0, 0.5), 
-                0 0 100px 60px rgba(255, 165, 0, 0.3);
     animation: sun-glow 3s infinite alternate ease-in-out;
 	z-index: 2;
 	cursor: pointer;
 }
 
-/* Animatie voor subtiele gloed */
+/* Animatie voor subtiele gloed van chatGPT*/
 @keyframes sun-glow {
     0% {
         box-shadow: 0 0 50px 30px rgba(255, 223, 0, 0.5), 
@@ -40,10 +107,10 @@ body {
 
 
 
-
-
-
-/* 📖 Boek (verstopt voordat de zon is aangeklikt) */
+/* Boek code */
+/* Bron: https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin */
+/* Met hulp van Vasilis */
+/* Transition met hulp van Dante */
 body > section:nth-of-type(1) {
 	position: relative;
 	height: 100vh;
@@ -78,6 +145,7 @@ body > section:nth-of-type(1) {
     top: 30%;
 	animation: bookFall 1s ease-out;
 	animation-direction: reverse;
+
 }
 
 .book:not(.falling):hover {
@@ -108,7 +176,6 @@ body > section:nth-of-type(1) {
 	}
 }
 
-/* 📖 Tekst zichtbaar in geopend boek */
 .book-content {
     position: absolute;
     top: 30%;
@@ -126,9 +193,8 @@ body > section:nth-of-type(1) {
     display: block;
 }
 
-img {
-	width: 10%;
-}
+
+
 
 /* Het poppetje */
 .container {
@@ -198,9 +264,10 @@ img {
 }
 
 /* Hoed */
+/* Bron: Dante voor Transition */
 .hoed {
     position: absolute;
-    top: -2.5em; /* Plaats boven het hoofd */
+    top: -2.5em; 
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
@@ -215,7 +282,7 @@ img {
 /* Microphone */
 .microfoon {
     position: absolute;
-    top: -1.5em; /* Initially hidden under the hat */
+    top: -1.5em; 
     left: 50%;
     width: max-content;
     transform: translateX(-50%);
@@ -224,19 +291,17 @@ img {
     cursor: pointer;
 }
 
-/* Move the microphone further down when clicked */
 .microfoon.actief {
-    top: 4em; /* Drop-down effect */
+    top: 4em;
     transition: top 0.5s ease-in-out;
 }
 
 .hoed.omhoog {
-    top: -6em; /* Moves the hat up */
+    top: -6em; 
     transform: translateX(-50%) rotate(-10deg) scale(1.1); /* Slight tilt for a natural effect */
     animation: hoed-vliegen 0.8s ease-out forwards;
 }
 
-/* Keyframe animation for a flying effect */
 @keyframes hoed-vliegen {
     0% {
         transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
@@ -246,7 +311,7 @@ img {
     }
 }
 
-/* Hoed rand */
+/* Hoed rand van ChatGPT */
 .hoed::before {
     content: "";
     position: absolute;
@@ -262,10 +327,13 @@ img {
 
 
 
-
-
-
 /* Wolkjes */
+/* Bron: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline */
+/* Bron: https://scroll-driven-animations.style/ */
+.gedachten article p,h2,h3, ul, li {
+    padding-right: 3em;
+}
+
 section:nth-of-type(2) {
 	max-width: 100%;
 	left: 50%;
@@ -278,23 +346,17 @@ section:nth-of-type(3) {
 	gap:1em;
 }
 
-article {
-	width: 50%;
-	opacity: 0;
-}
-
-article div.mask {
-	background-color:white;
-	padding: 10em 2em 3em 2em;
-	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
 article:nth-of-type(1) {
 	animation:reveal1 linear forwards;
 	animation-timeline:scroll();
 	animation-range: 0vh 150vh;
   }
+
+  article.csgo {
+	z-index: 2;
+	position: relative;
+	padding: 10px;
+}
 
 article:nth-of-type(2) {
 	animation:reveal2 linear forwards;
@@ -302,11 +364,30 @@ article:nth-of-type(2) {
 	animation-range: 80vh 250vh;
   }
 
+article.school {
+	transition: transform 0.3s ease;
+	position: relative;
+	padding: 10px;
+    border-radius: 20px;
+}
+  
+article.school:hover {
+    transform: scale(1);
+	z-index: 1;
+}
+
 article:nth-of-type(3) {
 	animation:reveal3 linear forwards;
 	animation-timeline:scroll();
 	animation-range: 170vh 350vh;
   }
+
+article.volleybal {
+	transition: transform 0.3s ease;
+	position: relative;
+	padding: 10px;
+    border-radius: 20px;
+}
   
   @keyframes reveal1 {
     0% {
@@ -361,56 +442,8 @@ article:nth-of-type(3) {
 
 
 
-
-
-
-article a {
-	color: black;
-	display: flex;
-	text-decoration: none;
-	overflow-y: scroll;
-	height: 10em;
-	list-style-type: disc;
-	justify-content: center;
-}
-
-.gedachten article p,h2,h3, ul, li {
-    padding-right: 3em;
-}
-
-article:nth-of-type(1) a {
-	flex-direction: row-reverse;
-	align-items: left;
-	position: sticky;
-}
-
-article:nth-of-type(2) a {
-	align-items: left;
-	flex-direction: column;
-    padding: 1em;
-}
-
-article:nth-of-type(3) a {
-	flex-direction: column;
-	align-items: left;
-}
-
-article.csgo {
-	z-index: 2;
-	position: relative;
-	padding: 10px;
-}
-
-article div.mask:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-
-
-
-
 /* Bubbeltjes code */
+/* Bron: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline */
 article .bubbel1 {
     position: absolute;
     opacity: 0;
@@ -470,18 +503,6 @@ article .bubbel2 {
     80% {
         opacity: 0;
     }
-}
-
-article.school {
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-	position: relative;
-	padding: 10px;
-    border-radius: 20px;
-}
-  
-article.school:hover {
-    transform: scale(1);
-	z-index: 1;
 }
 
 article .bubbel3 {
@@ -545,13 +566,6 @@ article .bubbel4 {
     }
 }
 
-article.volleybal {
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-	position: relative;
-	padding: 10px;
-    border-radius: 20px;
-}
-
 article .bubbel5 {
     position: absolute;
 	opacity: 0;
@@ -609,27 +623,7 @@ article .bubbel6 {
 
 
 
-
-
-
-.mask {
-	mask-image: url('/images/Evenement_Icoon.png');
-	mask-size: 100% 100%;
-}
-
-iframe {
-	max-width:45%;
-}
-
-article div {
-	padding: 0.5em;
-	align-self:flex-end;
-}
-
-
-
-
-
+/* Bron: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Media_queries */
 @media screen and (max-width: 1166px) {
     article {
         width: 55%;
@@ -642,7 +636,6 @@ article div {
     }
 
 }
-
 
 @media screen and (min-width: 680px) and (max-width: 1000px) {
 	section.gedachten {
@@ -657,9 +650,6 @@ article div {
 	}
 	article:nth-of-type(1) a iframe {
 		width: max-content;
-	}
-	body {
-		background-color: red;
 	}
     @keyframes reveal2 {
         0% {
@@ -677,23 +667,11 @@ article div {
         }
       }
   }
-  /* 🔹 Responsive Adjustments with Media Queries */
-@media (max-width: 768px) { /* Tablets & smaller screens */
-    article .bubbel3, article .bubbel4 {
-        width: 5vw;
-        height: 5vw;
-    }
-}
-
-
 
   @media screen and (max-width: 680px) {
 	article {
 		width: 100%;
 	}
-	body {
-		color: purple
-	};
     iframe {
         display: none;
     }
@@ -712,8 +690,11 @@ article div {
           translate: 1vw -70vh;
         }
       }
+      article .bubbel3, article .bubbel4 {
+        width: 5vw;
+        height: 5vw;
+    }
   }
-
 
 @media (max-width: 480px) { /* Mobile devices */
     article .bubbel3, article .bubbel4 {
@@ -724,12 +705,3 @@ article div {
         display: none;
     }
 }
-
-  @font-face {
-    font-family: 'noteworthylight';
-    src: url('noteworthy-lt-webfont.woff2') format('woff2'),
-         url('noteworthy-lt-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-

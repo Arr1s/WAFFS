@@ -19,15 +19,21 @@ getData(urlMe).then( data209 => {
 	let birthDay = data209.data.birthdate;
 	let myBio = data209.data.bio;
 	let myImage = data209.data.avatar;
-	let myHobbies = data209.data.custom;
+	let myWebsite = data209.data.website;
 
 	// Selecteer de h1 met de naam "h1" en vergang de tekst met "myName"
 	let h1 = document.querySelector('h1');
 	h1.textContent = myName;
 
 	// Selecteer de p met de naam "verjaardag" en vergang de tekst met "birthDay"
-	let biografie = document.querySelector('p');
-	biografie.textContent = myBio + "" + myHobbies;
+	let biografie = document.querySelector('p:first-of-type');
+	biografie.textContent = myBio;
+
+	let verjaardag = document.querySelector('p:nth-of-type(2)');
+	verjaardag.textContent = birthDay;
+
+	let website = document.querySelector('a:first-of-type');
+	website.textContent = myWebsite;
 
     let myImg = document.createElement("img");
     myImg.src = myImage;
