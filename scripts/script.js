@@ -43,6 +43,7 @@ getData(urlMe).then( data209 => {
     h1.appendChild(myImg);
 });
 
+// Functie om data op te halen
 async /*9*/ function getData(URL) {
 	return ( //8
 		fetch(URL) //1
@@ -60,21 +61,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const microfoon = document.querySelector(".microfoon");
 
     // Create an audio element
-    const audio = new Audio("iBelieve.wav"); // Replace with your actual music file
+    const audio = new Audio("iBelieve.wav"); 
 	console.log(audio);
 
     hoed.addEventListener("click", function() {
-        hoed.classList.toggle("omhoog"); // Toggle class to reveal microphone
+        hoed.classList.toggle("omhoog"); 
     });
 
     microfoon.addEventListener("click", function() {
-        microfoon.classList.toggle("actief"); // Move microphone down
+        microfoon.classList.toggle("actief"); 
 
         if (microfoon.classList.contains("actief")) {
-            audio.play(); // Play music when microphone moves down
+            audio.play(); 
         } else {
-            audio.pause(); // Pause music when microphone moves back
-            audio.currentTime = 0; // Reset music
+            audio.pause(); 
+            audio.currentTime = 0; 
         }
     });
 });
@@ -84,21 +85,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const book = document.querySelector(".book");
     let clickedOnce = false;
 
-    // 🌞 Klik op de zon → boek verschijnt en valt naar beneden
+    // Als je klikt op de zon, valt het boek
     sun.addEventListener("click", function () {
         book.classList.add("falling");
 		book.classList.remove("loading");
     });
 
-    // 📖 Klik op het boek → Zoom in
-    book.addEventListener("click", function () {
-        if (!clickedOnce) {
-            book.classList.add("zoom");
-            clickedOnce = true;
-        } else {
-            book.classList.toggle("open"); // Open het boek
-        }
-    });
+	// Als de animatie klaar is, verwijder de class "falling"
 	book.addEventListener("animationend", function () {
 		book.classList.remove("falling");
 	});
